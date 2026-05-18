@@ -143,7 +143,7 @@ corr_df = filtered[[
 # verfügbare Grundwasserförderung
 gw_available = GW_KONZESSION_M3_DAY * (1-pump_failure)
 
-filtered["GW_Szenario"] = filtered["Grundwasser_imNetz_absolut"].clip(upper=gw_available)
+filtered["GW_Szenario"] = gw_available
 
 filtered["Supply_Szenario"] =(
     filtered["Quellwasser_imNetz_absolut"] +
@@ -191,6 +191,7 @@ storage = RESERVOIR_CAPACITY_M3 * initial_storage_percent
 
 storage_levels = []
 deficits = []
+spills = []
 
 # DataFrame für Szenario
 
@@ -199,22 +200,29 @@ for i, row in filtered.iterrows():
     supply = row["Supply_Szenario"]
     demand = row["Demand"]
 
-    storage = storage + supply - demand
+    #Rohe Bilanz
+    storage_new = storage + supply - demand
 
-    if storage > RESERVOIR_CAPACITY_M3:
-        storage = RESERVOIR_CAPACITY_M3
+    # Defizit
+    if storage_new < 0:
+        deficit = -storage_new
+        storage_new = 0
+    else: 
+        deficit = 0
 
-    deficit = 0
+    # überlauf 
+    spill = max(0, storage_new - RESERVOIR_CAPACITY_M3)
 
-    if storage < 0:
-        deficit = abs(storage)
-        storage = 0
+    #finaler Speicer
+    storage = (min, storage_new - RESERVOIR_CAPACITY_M3
 
     storage_levels.append(storage)
     deficits.append(deficit)
+    spills.append(spill)
 
 filtered["Reservoir"] = storage_levels
 filtered["Defizit"] = deficits
+filtered["Spill"] = spills
 
 # titel
 st.title("Saanen Wasserversorgung Dashboard")
