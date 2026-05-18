@@ -12,11 +12,11 @@ st.set_page_config(page_title="Hydrologie Dashboard", layout="wide")
 def load_data():
 
     # --- Meteo ---
-    meteo = pd.read_csv("ChateauDOex_Meteo.csv", sep=";")
+    meteo = pd.read_csv("data/ChateauDOex_Meteo.csv", sep=";")
     meteo["Datum"] = pd.to_datetime(meteo["Datum"], dayfirst=True)
 
     # --- Wasser (alle Orte + Jahre) ---
-    files = glob.glob("*_Saanen.csv")
+    files = glob.glob("data/*_Saanen.csv")
 
     dfs = []
 
