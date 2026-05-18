@@ -214,7 +214,7 @@ for i, row in filtered.iterrows():
     spill = max(0, storage_new - RESERVOIR_CAPACITY_M3)
 
     #finaler Speicer
-    storage = (min, storage_new - RESERVOIR_CAPACITY_M3)
+    storage = min(storage_new, RESERVOIR_CAPACITY_M3 * initial_storage_percent)
 
     storage_levels.append(storage)
     deficits.append(deficit)
