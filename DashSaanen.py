@@ -235,11 +235,11 @@ with col1:
     st.metric("Ø Temperatur", f"{filtered['LufttemperaturMittel'].mean():.2f} °C")
 
 with col2:
-    st.metric("Total Niederschlag", f"{filtered['Niederschlag'].sum():.1f}")
+    st.metric("Total Niederschlag", f"{filtered['Niederschlag'].sum():.1f} mm")
 
 with col3:
     st.metric("Ø Täglicher Wasserverbrauch",
-              f"{filtered['Total_Wasser'].mean():.1f}")
+              f"{filtered['Total_Wasser'].mean():.1f} m³")
 
 # Graphen
 
@@ -248,7 +248,13 @@ if compare_years:
     st.subheader("Vergleich Wasserverbrauch nach Jahr")
 
     year_df = df[df["location"] == location].copy()
-# Total Wasser
+
+    year_summary = (
+        year_df.groupby("year")["Total_Wasser"]
+        .agg(["mean", "sum"])
+        .reset_index()
+    )
+    # Total Wasser
     fig_yearTW = px.line(
         year_df,
         x="dayofyear",
@@ -268,6 +274,20 @@ if compare_years:
     )
 
     st.plotly_chart(fig_yearTW, use_container_width=True)
+
+    max_cols = 4
+
+    for i in range(0, len(year_summary), max_cols):
+        cols = st.columns(max_cols)
+
+        chunk = year_summary.iloc[i:i + max_cols]
+
+        for col, (_, row) in zip(cols, chunk.iterrows()):
+            col.metric(
+                label=f"Jahr {int(row['year'])}",
+                value=f"{row['sum']:,.0f} m³".replace(",","'"),
+                delta=f"{row['mean']:,.1f} m³/Tag".replace(",","'")
+            )
 
 # Quellwasser
     fig_yearQW = px.line(
