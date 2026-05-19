@@ -317,7 +317,7 @@ if compare_years:
         )
     )
 
-    fig_yearTW.update_yaxes(
+    fig_yearQW.update_yaxes(
         range=[0, df["Quellwasser_imNetz_absolut"].max()]
     )
 
@@ -355,7 +355,7 @@ if compare_years:
         )
     )
 
-    fig_yearTW.update_yaxes(
+    fig_yearGW.update_yaxes(
         range=[0, df["Grundwasser_imNetz_absolut"].max()]
     )
 
