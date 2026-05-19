@@ -253,7 +253,7 @@ if compare_years:
         year_df.groupby("year")["Total_Wasser"]
         .agg(["mean", "sum"])
         .reset_index()
-    )
+    )    
     # Total Wasser
     fig_yearTW = px.line(
         year_df,
@@ -289,6 +289,11 @@ if compare_years:
                 delta=f"{row['mean']:,.1f} m³/Tag".replace(",","'")
             )
 
+    year_summary_source = (
+    year_df.groupby("year")["Quellwasser_imNetz_absolut"]
+    .agg(["mean", "sum"])
+    .reset_index()
+)
 # Quellwasser
     fig_yearQW = px.line(
         year_df,
@@ -309,6 +314,19 @@ if compare_years:
     )
 
     st.plotly_chart(fig_yearQW, use_container_width=True)
+
+    for i in range(0, len(year_summary_source), max_cols):
+        cols = st.columns(max_cols)
+
+        chunk = year_summary_source.iloc[i:i + max_cols]
+
+        for col, (_, row) in zip(cols, chunk.iterrows()):
+            col.metric(
+                label=f"Jahr {int(row['year'])}",
+                value=f"{row['sum']:,.0f} m³".replace(",", "'"),
+                delta=f"{row['mean']:,.1f} m³/Tag".replace(",", "'")
+            )
+
 
 # Grundwasser
     fig_yearGW = px.line(
