@@ -426,8 +426,9 @@ if szenario:
         title="Reservoirfüllstand"
     )
 
-    fig7.update_layout(
-        yaxis_title="Speicher [m³]"
+    fig7.update_yaxes(
+        range=[0, RESERVOIR_CAPACITY_M3],
+        title="Speicher [m³]"
     )
 
     st.plotly_chart(fig7, use_container_width=True)
