@@ -273,6 +273,11 @@ if compare_years:
         )
     )
 
+        fig_yearTW.update_yaxes(
+        range=[0, max(df["TotalWasser"])],
+        title="Wasserverbrauch [m³]"
+    )
+
     st.plotly_chart(fig_yearTW, use_container_width=True)
 
     max_cols = 4
