@@ -3,6 +3,7 @@ import pandas as pd
 import glob
 from pathlib import Path
 import plotly.express as px
+from streamlit import expander
 
 st.set_page_config(page_title="Hydrologie Dashboard", layout="wide")
 
@@ -241,6 +242,14 @@ with col3:
     st.metric("Ø Täglicher Wasserverbrauch",
               f"{filtered['Total_Wasser'].mean():.1f} m³")
 
+
+with st.expander("Einleitung Anzeigen"):
+    st.write("""
+    Saanen...
+    """)
+
+
+
 # Graphen
 
 # Vergleich der Jahre
@@ -297,7 +306,14 @@ if compare_years:
     year_df.groupby("year")["Quellwasser_imNetz_absolut"]
     .agg(["mean", "sum"])
     .reset_index()
-)
+    )
+
+    st.write(
+        """Der Wasserverbrauch pro Jahr folgt einer Linie: im Hochsommer (Juli und August) und im Dezember 
+        Wasser verbraucht als im Frühling und Herbst. Dies hängt mit dem starken Tourismus in der Gemeinde 
+        Saanen zusammen. 
+        """
+    )
 # Quellwasser
     fig_yearQW = px.line(
         year_df,
@@ -317,7 +333,7 @@ if compare_years:
         )
     )
 
-    fig_yearTW.update_yaxes(
+    fig_yearQW.update_yaxes(
         range=[0, df["Quellwasser_imNetz_absolut"].max()]
     )
 
@@ -355,7 +371,7 @@ if compare_years:
         )
     )
 
-    fig_yearTW.update_yaxes(
+    fig_yearGW.update_yaxes(
         range=[0, df["Grundwasser_imNetz_absolut"].max()]
     )
 
@@ -374,6 +390,7 @@ if water_origin:
     )
 
     st.plotly_chart(fig1, use_container_width=True)
+
 
     fig2 = px.line(
         filtered,
@@ -446,9 +463,27 @@ if meteo_hydrologie_data:
 
     st.plotly_chart(fig6, use_container_width=True)
 
+    st.write(
+        """Es kann keine signifikante Korrelation zwischen Niederschlag, Wasserverfügbarkeit und 
+        Quellwasserverbrauch festgestellt werden.         
+        """
+    )
+
 # Szenario
 if szenario:
     st.subheader("Reservoir Speicher")
+
+    with st.expander("Erlärung zu den Graphen anzeigen"):
+        st.write("""Es wird berechnet wie viel Grundwasser noch verfügbar wäre, wenn ein prozentualer Pumpausfall
+                 von x vorfällt. 
+                 Im Graph über den Reservoirfüllstand wird angezeigt, wie voll das Reservoir ist. Dieses füllt
+                 sich automatisch auf, wenn genügend Wasser verfügbar ist. Das Reservoir füllt sich aber nur auf den
+                 von Benutzenden eingestellten Wert. 
+                 Im Graph über Versorgungsdefizit, sieht man an welchen Tagen der Wasserverbrauch nicht hätte
+                 gedeckt werden können. Dies basiert auf die echten Verbrauchsdaten der vergangen Jahre. 
+                 
+                 """)
+
     fig7 = px.line(
         filtered,
         x="Datum",
@@ -471,7 +506,14 @@ if szenario:
         title="Versorgungsdefizit"
     )
 
+    st.write(
+        """Aus den Graphen und Berechnungen kann man lesen, dass die Gemeinde Saanen erst 
+        bei einem Pumpausfall über 85% ein Versorgungsdefizit hätte (bei einem Reservoir von mind. 40%).         
+        """
+    )
+
     st.plotly_chart(fig8, use_container_width=True)
+
 
     # Kennzahlen Resilienz
     st.subheader("System Resilienz")
