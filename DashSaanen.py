@@ -317,8 +317,12 @@ if compare_years:
         )
     )
 
-    st.plotly_chart(fig_yearQW, use_container_width=True)
+    fig_yearTW.update_yaxes(
+        range=[0, df["Quellwasser_imNetz_absolut"].max()]
+    )
 
+    st.plotly_chart(fig_yearQW, use_container_width=True)
+    
     for i in range(0, len(year_summary_source), max_cols):
         cols = st.columns(max_cols)
 
@@ -349,6 +353,10 @@ if compare_years:
             tickvals=[15,45,75,115,135,165,195,225,255,285,315,345],
             ticktext=["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"]
         )
+    )
+
+    fig_yearTW.update_yaxes(
+        range=[0, df["Grundwasser_imNetz_absolut"].max()]
     )
 
     st.plotly_chart(fig_yearGW, use_container_width=True)
