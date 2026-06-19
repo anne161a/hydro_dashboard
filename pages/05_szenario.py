@@ -8,13 +8,11 @@ df = prepare_data(df)
 filtered, location = sidebar_filters(df)
 
 pump_failure, initial_storage_percent = scenario_settings()
-st.write("Pump failure:", pump_failure)
-st.write("Initial storage:", initial_storage_percent)
 
 filtered = prepare_scenario(filtered, pump_failure)
 filtered = simulate_reservoir(filtered, initial_storage_percent)
 
-st.subheader("Reservoir Speicher")
+st.subheader("Szenarien Rechner")
 
 with st.expander("Erlärung zu den Graphen anzeigen"):
     st.write("""Es wird berechnet wie viel Grundwasser noch verfügbar wäre, wenn ein prozentualer Pumpausfall

@@ -55,6 +55,8 @@ def prepare_data(df):
             df["Grundwasser_imNetz_absolut"]
     )
 
+    # Für Vergleich von Jahr zu Jahr:
+
     df["Grundwasser_7d"] = (
         df.groupby(["location", "year"])["Grundwasser_imNetz_absolut"]
         .transform(lambda x: x.rolling(7, min_periods=1).mean())
@@ -71,6 +73,32 @@ def prepare_data(df):
     df["WasserBilanz"] = (
             df["Niederschlag"] -
             df["Referenzverdunstung"]
+    )
+
+    # Für bestimmten Zeitpunkt
+
+    df["Quellwasser_7d_f"] = (
+        df["Quellwasser_imNetz_absolut"]
+        .rolling(7, min_periods=1)
+        .mean()
+    )
+
+    df["Grundwasser_7d_f"] = (
+        df["Grundwasser_imNetz_absolut"]
+        .rolling(7, min_periods=1)
+        .mean()
+    )
+
+    df["Quellwasser_7d_prozent_f"] = (
+        df["Quellwasser_imNetz_prozent"]
+        .rolling(7, min_periods=1)
+        .mean()
+    )
+
+    df["Grundwasser_7d_prozent_f"] = (
+        df["Grundwasser_imNetz_prozent"]
+        .rolling(7, min_periods=1)
+        .mean()
     )
 
     return df
@@ -138,23 +166,7 @@ def prepare_scenario(filtered, pump_failure):
 
     filtered["Demand"] = filtered["Total_Wasser"]
 
-    filtered["Quellwasser_7d_f"] = (
-        filtered["Quellwasser_imNetz_absolut"]
-        .rolling(7, min_periods=1)
-        .mean()
-    )
 
-    filtered["Grundwasser_7d_f"] = (
-        filtered["Grundwasser_imNetz_absolut"]
-        .rolling(7, min_periods=1)
-        .mean()
-    )
-
-    filtered["TotalWasser_7d_f"] = (
-        filtered["Total_Wasser"]
-        .rolling(7, min_periods=1)
-        .mean()
-    )
 
     return filtered
 
