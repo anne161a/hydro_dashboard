@@ -12,7 +12,7 @@ pump_failure, initial_storage_percent = scenario_settings()
 filtered = prepare_scenario(filtered, pump_failure)
 filtered = simulate_reservoir(filtered, initial_storage_percent)
 
-st.subheader("Szenarien Rechner")
+st.header("Szenarien Rechner")
 
 with st.expander("Erlärung zu den Graphen anzeigen"):
     st.write("""Es wird berechnet wie viel Grundwasser noch verfügbar wäre, wenn ein prozentualer Pumpausfall

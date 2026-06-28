@@ -20,6 +20,23 @@ Die vorliegende Arbeit untersucht die Trinkwasserversorgung der Gemeinde Saanen 
 Frage, wie das Zusammenspiel von Quell- und Grundwasser zu einer stabilen Versorgung beiträgt. 
 """)
 
+st.header("Über die Gemeinde")
+
+st.write("""
+- Anzahl ständige Wohnbevölkerung: 7'603
+- Saisonale Schwankungen der Wohnbevölerung: ca. 350 Arbeitskräfte
+- Wochenaufenthalter: ca. 220
+- Anzahl Haushalte: 3'547
+
+Saanen hat in Winter- und Sommersaison viele Tourist:innen. Circa 30'000 Menschen halten sich während
+Winter- und Sommersaison in der Gemeinde auf. 
+
+Saanen ist mit rund 12'000 Hektaren flächenmässig die 8. grösste Gemeinde des Kantons Bern. Knapp über die Hälfte
+der Fläche wird landwirtschaftlich genutzt (Gemeinde in Zahlen, o. J.). 
+
+
+""")
+
 st.header("Forschungsfrage")
 
 st.write("""

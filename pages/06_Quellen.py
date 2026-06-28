@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Verzeichnisse")
+st.header("Verzeichnisse")
 
 st.subheader("Quellenverzeichnis: ")
 
@@ -39,4 +39,7 @@ https://fokus-saanenland.ch/die-wasserversorgung-der-gemeinde-saanen/. Abgerufen
 """)
 
 st.subheader("Hilfsmittelverzeichnis: ")
-st.write("ChatGPT, Version 5.5, OpenAI: https://chatgpt.com Unterstützung bei sprachlichen Formulierungen. ")
+st.write("""
+ChatGPT, Version 5.5, OpenAI: https://chatgpt.com Unterstützung bei sprachlichen Formulierungen. 
+ChatGPT, Version 5.5, OpenAI: https://chatgpt.com Unterstützung beim Programmieren des Dashboardes.
+""")

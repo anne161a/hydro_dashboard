@@ -7,7 +7,7 @@ df = prepare_data(df)
 
 filtered, location = sidebar_filters(df)
 
-st.subheader("Wasserverbrauch verglichen nach Jahren")
+st.header("Wasserverbrauch verglichen nach Jahren")
 
 year_df = df[df["location"] == location].copy()
 

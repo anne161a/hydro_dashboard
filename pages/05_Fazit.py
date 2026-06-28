@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Diskussion")
+st.header("Diskussion")
 
 st.write("""
 Die Ergebnisse des Tools verdeutlichen, dass die Resilienz des Dualsystems von zwei Faktoren abhängt: dem 

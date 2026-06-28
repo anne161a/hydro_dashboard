@@ -15,7 +15,7 @@ corr_df = filtered[[
     "Quellwasser_imNetz_absolut"
 ]].dropna()
 
-st.subheader("Meteodaten und Hydrologie")
+st.header("Meteodaten und Hydrologie")
 
 #korrelation
 fig4 = px.scatter(
@@ -36,11 +36,12 @@ fig_lag = px.scatter(
     x="Niederschlag_lag30",
     y="Quellwasser_imNetz_absolut",
     trendline="ols",
-    title="Lag 7 Tage: Niederschlag → Quellwasser"
+    title="Lag 7 Tage: Niederschlag vs Quellwasserverfügbarkeit"
 )
 
 st.plotly_chart(fig_lag, use_container_width=True)
 
+st.write("Mit dem \"Lag\" wird überprüft ob die Quellen verzögert zum Niederschlag reagieren.")
 
 #Korrelationsmatrix
 

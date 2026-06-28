@@ -7,7 +7,7 @@ df = prepare_data(df)
 
 filtered, location = sidebar_filters(df)
 
-st.subheader("Herkunft vom gebrauchten Wasser")
+st.header("Herkunft vom gebrauchten Wasser")
 
 # Quellwasserverbrauch
 fig1 = px.line(
